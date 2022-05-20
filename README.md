@@ -1,3 +1,3 @@
 # MLOps_zoomcamp
 
-Learning about Oprationalizing machine learning
+Learning about Operationalizing machine learning
