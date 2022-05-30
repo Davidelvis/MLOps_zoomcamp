@@ -1,33 +1,30 @@
 import argparse
 import os
 import pickle
+
 import mlflow
 
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error
 
-mlflow.set_tracking_uri("sqlite:///mlflow.db")
-mlflow.set_experiment("nyc-taxi-homework")
 
-with mlflow.start_run():
-    mlflow.autolog()
-    def load_pickle(filename: str):
-        with open(filename, "rb") as f_in:
-            return pickle.load(f_in)
+def load_pickle(filename: str):
+    with open(filename, "rb") as f_in:
+        return pickle.load(f_in)
 
 
-    def run(data_path):
-
+def run(data_path):
+    with mlflow.start_run():
         X_train, y_train = load_pickle(os.path.join(data_path, "train.pkl"))
         X_valid, y_valid = load_pickle(os.path.join(data_path, "valid.pkl"))
-
         rf = RandomForestRegressor(max_depth=10, random_state=0)
         rf.fit(X_train, y_train)
-        y_pred = rf.predict(X_valid)
 
-        rmse = mean_squared_error(y_valid, y_pred, squared=False)
+    y_pred = rf.predict(X_valid)
 
-    autolog_run = mlflow.last_active_run()
+    rmse = mean_squared_error(y_valid, y_pred, squared=False)
+
+
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
@@ -38,4 +35,8 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
 
+    mlflow.sklearn.autolog()
+    mlflow.set_tracking_uri("sqlite:///mlflow.db")
+    mlflow.set_experiment("02-experiment-tracking-homework")
+    
     run(args.data_path)
