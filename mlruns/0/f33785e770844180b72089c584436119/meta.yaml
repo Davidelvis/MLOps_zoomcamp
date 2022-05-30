@@ -1,0 +1,15 @@
+artifact_uri: file:///home/david/Elvis/MLOps_zoomcamp/mlruns/0/f33785e770844180b72089c584436119/artifacts
+end_time: 1653646994687
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: f33785e770844180b72089c584436119
+run_uuid: f33785e770844180b72089c584436119
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1653646994578
+status: 4
+tags: []
+user_id: david
